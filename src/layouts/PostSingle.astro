@@ -1,0 +1,40 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { markdownify } from "@/lib/textConverter";
+import { render } from "astro:content";
+
+const COLLECTION_FOLDER = "blog";
+const { post } = Astro.props;
+
+const posts = await getSinglePage(COLLECTION_FOLDER);
+const { Content } = await render(post);
+const { title, image } = post.data;
+---
+
+<section class="section pt-7">
+  <div class="container">
+    <div class="row justify-center">
+      <article class="lg:col-10">
+        {
+          image && (
+            <div class="mb-10">
+              <ImageMod
+                src={image}
+                height={500}
+                width={1200}
+                alt={title}
+                class="w-full rounded"
+                format="webp"
+              />
+            </div>
+          )
+        }
+        <h1 set:html={markdownify(title)} class="h2 mb-4" />
+        <div class="content mb-10">
+          <Content />
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

@@ -128,7 +128,9 @@ export default function HomePage() {
             transition={{ duration: 0.5, delay: 1.5 }}
           >
             {socialConfig.main.map((social) => {
-              const Icon = Icons[social.icon as keyof typeof Icons];
+              const Icon = Icons[
+                social.icon as keyof typeof Icons
+              ] as React.ElementType;
               return (
                 <SocialLink
                   key={social.label}
@@ -140,7 +142,7 @@ export default function HomePage() {
             })}
           </motion.div>
 
-          {/* CTA Buttons */}
+          {/* Buttons */}
           <motion.div
             className="flex flex-wrap gap-4 justify-center"
             initial={{ opacity: 0, y: 20 }}
