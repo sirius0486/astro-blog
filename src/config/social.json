@@ -1,0 +1,29 @@
+{
+  "main": [
+    {
+      "label": "Github",
+      "icon": "Github",
+      "href": "https://www.github.com/keqing77"
+    },
+    {
+      "label": "Twitter",
+      "icon": "Twitter",
+      "href": "https://twitter.com/"
+    },
+    {
+      "label": "Blog",
+      "icon": "Rss",
+      "href": "https://sirius1024.vercel.app/"
+    },
+    {
+      "label": "Me",
+      "icon": "House",
+      "href": "https://bento.me/keqing"
+    },
+    {
+      "label": "Email",
+      "icon": "Mail",
+      "href": "mailto:hello@example.com"
+    }
+  ]
+}

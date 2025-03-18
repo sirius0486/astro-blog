@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@plugin "@/tailwind-plugin/tw-theme";
+@plugin "@/tailwind-plugin/tw-bs-grid";
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@import "@/styles/safe.css";
+@import "@/styles/utilities.css";
+
+@layer base {
+  @import "@/styles/base.css";
+}
+
+@layer components {
+  @import "@/styles/components.css";
+  @import "@/styles/navigation.css";
+  @import "@/styles/buttons.css";
+  @import "@/styles/search.css";
+}

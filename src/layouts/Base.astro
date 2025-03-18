@@ -1,0 +1,65 @@
+---
+import Header from "@/components/Header.astro";
+import TwSizeIndicator from "@/components/TwSizeIndicator.astro";
+import theme from "@/config/theme.json";
+import "@/styles/main.css";
+import { AstroFont } from "astro-font";
+
+const { content } = Astro.props;
+
+// font families
+const pf = theme.fonts.font_family.primary;
+const sf = theme.fonts.font_family.secondary;
+
+let fontPrimary, fontSecondary;
+if (theme.fonts.font_family.primary) {
+  fontPrimary = theme.fonts.font_family.primary
+    .replace(/\+/g, " ")
+    .replace(/:[ital,]*[ital@]*[wght@]*[0-9,;.]+/gi, "");
+}
+if (theme.fonts.font_family.secondary) {
+  fontSecondary = theme.fonts.font_family.secondary
+    .replace(/\+/g, " ")
+    .replace(/:[ital,]*[ital@]*[wght@]*[0-9,;.]+/gi, "");
+}
+---
+
+<html lang="en">
+  <head>
+    <!-- google font css -->
+    <AstroFont
+      config={[
+        {
+          src: [],
+          preload: false,
+          display: "swap",
+          name: fontPrimary!,
+          fallback: "sans-serif",
+          cssVariable: "font-primary",
+          googleFontsURL: `https://fonts.googleapis.com/css2?family=${pf}&display=swap`,
+        },
+        {
+          src: [],
+          preload: false,
+          display: "swap",
+          name: fontSecondary!,
+          fallback: "sans-serif",
+          cssVariable: "font-secondary",
+          googleFontsURL: `https://fonts.googleapis.com/css2?family=${sf}&display=swap`,
+        },
+      ]}
+    />
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{content}</title>
+  </head>
+  <body>
+    <TwSizeIndicator />
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+{
+  "main": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Blog",
+      "url": "/blog"
+    },
+    {
+      "name": "About",
+      "url": "/about"
+    },
+    {
+      "name": "Pages",
+      "url": "",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "Gallery",
+          "url": "/gallery"
+        },
+        {
+          "name": "Friends",
+          "url": "/friends"
+        },
+        {
+          "name": "Tags",
+          "url": "/tags"
+        }
+      ]
+    }
+  ],
+  "footer": [
+    {
+      "name": "Elements",
+      "url": "/elements"
+    },
+    {
+      "name": "Privacy Policy",
+      "url": "/privacy-policy"
+    }
+  ]
+}
