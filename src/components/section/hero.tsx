@@ -1,10 +1,8 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import socialConfig from "@/config/social.json";
 import { cn } from "@/lib/utils";
 import * as Icons from "lucide-react";
-import { ExternalLink } from "lucide-react";
 import { motion } from "motion/react";
 import type React from "react";
 import { useEffect, useState } from "react";
@@ -140,26 +138,6 @@ export default function HomePage() {
                 />
               );
             })}
-          </motion.div>
-
-          {/* Buttons */}
-          <motion.div
-            className="flex flex-wrap gap-4 justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1.8 }}
-          >
-            <Button
-              size="lg"
-              className="group text-white
-            "
-            >
-              <a href="/about">About Me</a>
-              <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-            <Button size="lg" variant="outline" className="cursor:pointer">
-              Checkout CV
-            </Button>
           </motion.div>
         </motion.div>
       </main>

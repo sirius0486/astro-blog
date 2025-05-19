@@ -1,0 +1,22 @@
+{
+  "friends": [
+    {
+      "name": "Victor Teo",
+      "avatar": "/images/friends/victor.jpeg",
+      "bio": "Full-stck developer & rust expert",
+      "url": "https://teodev.io/"
+    },
+    {
+      "name": "Sirius",
+      "avatar": "/images/friends/sirius.jpeg",
+      "bio": "Frontend developer & rust enthusiast",
+      "url": "https://bento.me/sirius0"
+    },
+    {
+      "name": "layfor",
+      "avatar": "/images/friends/layfor.jpeg",
+      "bio": "Frontend developer",
+      "url": "https://keqinghome.vercel.app/en"
+    }
+  ]
+}

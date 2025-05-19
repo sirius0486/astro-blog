@@ -1,0 +1,28 @@
+---
+import { FriendCard } from "@/components/friends/FriendCard";
+import friendsConfig from "@/config/friends.json";
+import Base from "@/layouts/Base.astro";
+
+const { friends } = friendsConfig;
+---
+
+<Base title="Friends | Your Site Name">
+  <div class="container mx-auto px-4 py-16">
+    <div class="max-w-4xl mx-auto mb-4 text-center"></div>
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+    >
+      {
+        friends.map((friend) => (
+          <FriendCard
+            client:load
+            name={friend.name}
+            avatar={friend.avatar}
+            bio={friend.bio}
+            url={friend.url}
+          />
+        ))
+      }
+    </div>
+  </div>
+</Base>

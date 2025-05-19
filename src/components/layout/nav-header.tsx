@@ -19,9 +19,6 @@ function NavHeader() {
       <Tab setPosition={setPosition} href="/blog">
         Blog
       </Tab>
-      <Tab setPosition={setPosition} href="/about">
-        About
-      </Tab>
       <Tab setPosition={setPosition} href="/gallery">
         Gallery
       </Tab>

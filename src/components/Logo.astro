@@ -1,6 +1,5 @@
 ---
 import config from "@/config/config.json";
-import ImageMod from "./ImageMod.astro";
 
 const { src, srcDarkmode }: { src?: string; srcDarkmode?: string } =
   Astro.props;
@@ -21,43 +20,46 @@ const {
 } = config.site;
 
 const { theme_switcher }: { theme_switcher: boolean } = config.settings;
+
+// 确定最终使用的logo路径
+const lightLogo = src || logo;
+const darkLogo = srcDarkmode || logo_darkmode;
 ---
 
 <a href="/" class="navbar-brand inline-block">
   {
-    src || srcDarkmode || logo || logo_darkmode ? (
+    lightLogo || darkLogo ? (
       <>
-        <ImageMod
-          src={src ? src : logo}
+        <img
+          src={lightLogo}
           class={`inline-block ${theme_switcher && "dark:hidden"}`}
-          width={logo_width.replace("px", "") * 2}
-          height={logo_height.replace("px", "") * 2}
+          width={logo_width.replace("px", "")}
+          height={logo_height.replace("px", "")}
           alt={title}
           style={{
             height: logo_height.replace("px", "") + "px",
-            width: logo_width.replace("px", "") + "px",
+            width: "auto", // SVG自动适应宽度
           }}
-          format="webp"
         />
+
         {theme_switcher && (
-          <ImageMod
-            src={srcDarkmode ? srcDarkmode : logo_darkmode}
-            class={"hidden dark:inline-block"}
-            width={logo_width.replace("px", "") * 2}
-            height={logo_height.replace("px", "") * 2}
+          <img
+            src={darkLogo}
+            class="hidden dark:inline-block"
+            width={logo_width.replace("px", "")}
+            height={logo_height.replace("px", "")}
             alt={title}
             style={{
               height: logo_height.replace("px", "") + "px",
-              width: logo_width.replace("px", "") + "px",
+              width: "auto", // SVG自动适应宽度
             }}
-            format="webp"
           />
         )}
       </>
     ) : logo_text ? (
-      logo_text
+      <span class="text-2xl font-bold">{logo_text}</span>
     ) : (
-      title
+      <span class="text-2xl font-bold">{title}</span>
     )
   }
 </a>

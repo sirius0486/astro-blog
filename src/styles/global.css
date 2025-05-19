@@ -119,3 +119,20 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* 可以根据需要添加额外的自定义样式 */
+.friend-grid {
+  --min-column-width: 250px;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--min-column-width), 1fr)
+  );
+  gap: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .friend-grid {
+    --min-column-width: 100%;
+  }
+}
