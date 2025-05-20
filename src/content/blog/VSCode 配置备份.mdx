@@ -1,15 +1,863 @@
 ---
-title: "VSCode 配置备份"
+title: "VSCode 配置备份(Profile)"
 description: "VSCode 配置备份"
-pubDate: 2023-06-30
-heroImage: "/blog/post/blog-placeholder-3.jpg"
+pubDate: 2024-06-30
+heroImage: "/blog/post/vscode.png"
 ---
 
-This is my first **post**.
+使用 VS Code 的时候非常建议登录 Github 账户并开启云同步配置备份，为不同语言的配置做备份，这样在不同的设备切换使用的时候保持一致的开发体验同时也能避免配置丢失。
 
-## Test
+### 设置(Settings)
 
-| Name | Age | Description |
-| ---- | --- | ----------- |
-| John | 20  | Lorem ipsum |
-| Doe  | 30  | Dolor sit   |
+可以参考其他人的配置，可以直接使用，也可以根据自己的需求进行修改。
+
+- [Anthony's VS Code Settings](https://github.com/antfu/vscode-settings)
+
+#### 快捷键(Shortcuts)
+
+`keybindings.json`
+
+```json
+[
+  {
+    "key": "cmd+o cmd+p",
+    "command": "workbench.action.showCommands"
+  },
+  {
+    "key": "cmd+x",
+    "command": "workbench.view.extensions"
+  },
+  {
+    "key": "alt+cmd+,",
+    "command": "workbench.action.openSettings"
+  },
+  {
+    "key": "cmd+0",
+    "command": "workbench.action.zoomReset"
+  },
+  {
+    "key": "escape",
+    "command": "notifications.hideToasts",
+    "when": "notificationToastsVisible"
+  },
+  {
+    "key": "cmd+g",
+    "command": "workbench.action.gotoLine"
+  },
+  {
+    "key": "cmd+r",
+    "command": "workbench.action.gotoSymbol"
+  },
+  {
+    "key": "cmd+shift+r",
+    "command": "workbench.action.showAllSymbols"
+  },
+  {
+    "key": "ctrl+1",
+    "command": "workbench.action.openEditorAtIndex1",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+2",
+    "command": "workbench.action.openEditorAtIndex2",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+3",
+    "command": "workbench.action.openEditorAtIndex3",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+4",
+    "command": "workbench.action.openEditorAtIndex4",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+5",
+    "command": "workbench.action.openEditorAtIndex5",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+6",
+    "command": "workbench.action.openEditorAtIndex6",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+7",
+    "command": "workbench.action.openEditorAtIndex7",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+8",
+    "command": "workbench.action.openEditorAtIndex8",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+9",
+    "command": "workbench.action.openEditorAtIndex9",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "cmd+h",
+    "command": "workbench.action.focusSideBar",
+    "when": "editorTextFocus || terminalFocus"
+  },
+  {
+    "key": "cmd+h",
+    "command": "workbench.view.search.focus",
+    "when": "activeViewlet == 'workbench.view.search' && !inputFocus"
+  },
+  {
+    "key": "cmd+h",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "editorIsOpen && !editorTextFocus && !view.terminal.visible"
+  },
+  {
+    "key": "cmd+k",
+    "command": "search.focus.nextInputBox",
+    "when": "inSearchEditor && inputBoxFocus || inputBoxFocus && searchViewletVisible"
+  },
+  {
+    "key": "cmd+l",
+    "command": "search.focus.previousInputBox",
+    "when": "inSearchEditor && inputBoxFocus || inputBoxFocus && searchViewletVisible && !searchInputBoxFocus"
+  },
+  {
+    "key": "alt+cmd+;",
+    "command": "search.action.collapseSearchResults"
+  },
+  {
+    "key": "alt+cmd+'",
+    "command": "search.action.expandSearchResults"
+  },
+  {
+    "key": "alt+cmd+0",
+    "command": "search.action.focusSearchList"
+  },
+  {
+    "key": "alt+enter",
+    "command": "editor.action.showContextMenu",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+j",
+    "command": "editor.action.copyLinesDownAction",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "alt+cmd+k",
+    "command": "editor.action.formatDocument",
+    "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
+  },
+  {
+    "key": "cmd+m cmd+w",
+    "command": "editor.emmet.action.wrapWithAbbreviation",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+m cmd+r",
+    "command": "editor.emmet.action.updateTag",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+m cmd+backspace",
+    "command": "editor.emmet.action.removeTag",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+m cmd+m",
+    "command": "editor.emmet.action.matchTag",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+[",
+    "command": "editor.fold",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+]",
+    "command": "editor.unfold",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "alt+cmd+[",
+    "command": "editor.foldAll",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "alt+cmd+]",
+    "command": "editor.unfoldAll",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "ctrl+alt+cmd+[",
+    "command": "editor.foldRecursively",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "ctrl+alt+cmd+]",
+    "command": "editor.unfoldRecursively",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+\\",
+    "command": "workbench.files.action.collapseExplorerFolders"
+  },
+  {
+    "key": "alt+\\",
+    "command": "workbench.files.action.showActiveFileInExplorer"
+  },
+  {
+    "key": "cmd+n",
+    "command": "explorer.newFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "shift+cmd+n",
+    "command": "explorer.newFolder",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "cmd+e",
+    "command": "workbench.view.explorer",
+    "when": "viewContainer.workbench.view.explorer.enabled"
+  },
+  {
+    "key": "cmd+t",
+    "command": "workbench.action.toggleMaximizedPanel"
+  },
+  {
+    "key": "Escape",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "cmd+n",
+    "command": "workbench.action.terminal.new",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "workbench.action.terminal.kill",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "cmd+k",
+    "command": "workbench.action.terminal.focusNext",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "cmd+l",
+    "command": "workbench.action.terminal.focusPrevious",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "alt+k",
+    "command": "workbench.action.terminal.clear",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "workbench.action.terminal.split",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "cmd+h",
+    "command": "workbench.action.terminal.focus",
+    "when": "view.terminal.visible && !terminalFocus"
+  },
+  {
+    "key": "ctrl+;",
+    "command": "workbench.action.terminal.focusNextPane",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+1",
+    "command": "workbench.action.terminal.focusAtIndex1",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+2",
+    "command": "workbench.action.terminal.focusAtIndex2",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+3",
+    "command": "workbench.action.terminal.focusAtIndex3",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+4",
+    "command": "workbench.action.terminal.focusAtIndex4",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+5",
+    "command": "workbench.action.terminal.focusAtIndex5",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+6",
+    "command": "workbench.action.terminal.focusAtIndex6",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+7",
+    "command": "workbench.action.terminal.focusAtIndex7",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+8",
+    "command": "workbench.action.terminal.focusAtIndex8",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+9",
+    "command": "workbench.action.terminal.focusAtIndex9",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "cmd+k",
+    "command": "workbench.action.nextEditor",
+    "when": "!terminalFocus && !listFocus && !suggestWidgetVisible && !inQuickOpen && !inputBoxFocus"
+  },
+  {
+    "key": "cmd+l",
+    "command": "workbench.action.previousEditor",
+    "when": "!terminalFocus && !listFocus && !suggestWidgetVisible && !inQuickOpen && !inputBoxFocus"
+  },
+  {
+    "key": "alt+tab",
+    "command": "workbench.action.quickSwitchWindow"
+  },
+  {
+    "key": "cmd+k",
+    "command": "workbench.action.quickOpenSelectNext",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "cmd+l",
+    "command": "workbench.action.quickOpenSelectPrevious",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "cmd+k",
+    "command": "selectNextSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "cmd+l",
+    "command": "selectPrevSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "cmd+.",
+    "command": "workbench.action.navigateForward",
+    "when": "canNavigateForward"
+  },
+  {
+    "key": "cmd+,",
+    "command": "workbench.action.navigateBack",
+    "when": "canNavigateBack"
+  },
+  {
+    "key": "k",
+    "command": "list.focusDown",
+    "when": "listFocus && !inputFocus"
+  },
+  {
+    "key": "l",
+    "command": "list.focusUp",
+    "when": "listFocus && !inputFocus"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "workbench.action.splitEditor",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+alt+n",
+    "command": "workbench.action.splitEditorDown"
+  },
+  {
+    "key": "shift+cmd+w",
+    "command": "workbench.action.closeAllEditors"
+  },
+  {
+    "key": "alt+w",
+    "command": "workbench.action.closeGroup"
+  },
+  {
+    "key": "ctrl+=",
+    "command": "workbench.action.increaseViewSize",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+-",
+    "command": "workbench.action.decreaseViewSize",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.navigateUp",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+;",
+    "command": "workbench.action.navigateRight",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.navigateDown",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.navigateLeft",
+    "when": "editorFocus"
+  }
+]
+```
+
+### 主题(Theme)
+
+> [🎨 VS Code | Beautiful Icon Themes](https://www.youtube.com/watch?v=ytsRnBdRVRY)
+
+VSCode 的主题可以在设置中进行选择，除了内置的主题外，还可以安装其他的主题插件，使用起来非常方便。也可以使用插件的主题，是完整的主题整合，包含了图标、字体、配色方案等，也可以根据自己需要进行选择不同的搭配
+
+- [Catppuccin Icons Theme for VSCode](https://marketplace.visualstudio.com/items?itemName=Catppuccin.catppuccin-vsc-icons)
+- [Helium Icon Theme](https://marketplace.visualstudio.com/items?itemName=helgardrichard.helium-icon-theme)
+- [Atom One Dark Theme](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onedark)
+- [Bearded Theme](https://marketplace.visualstudio.com/items?itemName=BeardedBear.beardedtheme)
+- [Darcula Theme](https://marketplace.visualstudio.com/items?itemName=rokoroku.vscode-theme-darcula)
+
+#### 字体(font)
+
+- [Dank Mono](https://philpl.gumroad.com/l/dank-mono)
+
+#### 图标(icon)
+
+> [🎨 VS Code | Beautiful Icon Themes](https://www.youtube.com/watch?v=ytsRnBdRVRY)
+
+- [Catppuccin Icons for VSCode](https://marketplace.visualstudio.com/items?itemName=Catppuccin.catppuccin-vsc-icons)
+- [Catppuccin Perfect Icons](https://marketplace.visualstudio.com/items?itemName=thang-nm.catppuccin-perfect-icons)
+- [Catppuccin Noctis Icons](https://marketplace.visualstudio.com/items?itemName=AlexDauenhauer.catppuccin-noctis-icons)
+- [Symbols](https://marketplace.visualstudio.com/items?itemName=miguelsolorio.symbols)
+- [Bearded Icons](https://marketplace.visualstudio.com/items?itemName=BeardedBear.beardedicons)
+- [file-icons](https://marketplace.visualstudio.com/items?itemName=file-icons.file-icons)
+- [vscode-icons-mac](https://marketplace.visualstudio.com/items?itemName=wayou.vscode-icons-mac)
+
+### 插件(Extensions)
+
+`extensions.json`
+
+```json
+{
+  "recommendations": [
+    // themes & icons
+    "helgardrichard.helium-icon-theme",
+
+    // tools
+    "donjayamanne.githistory",
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    "EditorConfig.EditorConfig",
+    "bradlc.vscode-tailwindcss",
+    "christian-kohler.path-intellisense",
+    "esbenp.prettier-vscode",
+    "formulahendry.code-runner",
+    "zolardev.js-runner",
+    "github.copilot",
+    "github.copilot-chat",
+    "ms-azuretools.vscode-docker",
+    "ms-vscode-remote.remote-containers",
+    "ms-vscode.live-server",
+    "prisma.prisma",
+    "simonsiefke.svg-preview",
+    "unifiedjs.vscode-mdx",
+    "yoavbls.pretty-ts-errors"
+
+    // fun
+    "github.vscode-github-actions",
+    "GitHub.vscode-pull-request-github",
+    "johnsoncodehk.vscode-tsconfig-helper",
+    "naumovs.color-highlight",
+    "WakaTime.vscode-wakatime",
+    "icrawl.discord-vscode",
+  ]
+}
+```
+
+#### 代码片段
+
+> javascript-snippets.json
+
+```json
+{
+  "Print to console": {
+    "prefix": "log",
+    "body": ["console.log($1);", "$2"],
+    "description": "Log output to console"
+  },
+  "JSON stringify": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
+    "prefix": "jst",
+    "body": ["<pre>{JSON.stringify($1, null, 2)}</pre>"]
+  },
+  "import": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
+    "prefix": "im",
+    "body": ["import { $1 } from '$2';"],
+    "description": "Import a module"
+  },
+  "export-all": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
+    "prefix": "ex",
+    "body": ["export * from '$2';"],
+    "description": "Export a module"
+  }
+}
+```
+
+> react-snippets.json
+
+```json
+{
+  "React.useState-Snippet": {
+    "prefix": "state",
+    "body": ["const [$1, set${1/(.*)/${1:/capitalize}/}] = useState<$2>($3)"],
+    "description": "useState snippet"
+  },
+  "React.useEffect-Snippet": {
+    "prefix": "effect",
+    "body": ["useEffect(() => {", "  $1", "}, [$2])"],
+    "description": "useEffect snippet"
+  },
+  "React.useRef-Snippet": {
+    "prefix": "ref",
+    "body": ["const $1 = useRef<$2>($3)"],
+    "description": "useRef snippet"
+  },
+  "React.useMemo-Snippet": {
+    "prefix": "memo",
+    "body": [
+      "const memoizedValue = useMemo(",
+      "\t() => ${3:performExpensiveCalculation}(${1:arg1}, ${2:arg2},",
+      "\t[${1:arg1}, ${2:arg2}]",
+      ")"
+    ],
+    "description": "useMemo snippet"
+  },
+  "React.useCallback-Snippet": {
+    "prefix": "callback",
+    "body": ["const $1 = useCallback(($2) => {", "  $3", "}, [$4])"],
+    "description": "useCallback snippet"
+  },
+  "React.Typescript-Function-Component": {
+    "prefix": "fc",
+    "body": [
+      "import { FC } from 'react'",
+      "",
+      "interface ${TM_FILENAME_BASE}Props {",
+      "\t$1",
+      "}",
+      "",
+      "const $TM_FILENAME_BASE: FC<${TM_FILENAME_BASE}Props> = ({$2}) => {",
+      "\treturn <div>$TM_FILENAME_BASE</div>",
+      "}",
+      "",
+      "export default $TM_FILENAME_BASE"
+    ],
+    "description": "Typescript React Function Component"
+  },
+  "React.Typescript-Arrow-Function-Component": {
+    "prefix": "rfc",
+    "body": [
+      "import React from 'react';",
+      "",
+      "import styles from './${TM_FILENAME_BASE}.module.scss';",
+      "",
+      "interface ${1:${TM_FILENAME_BASE}}Props {",
+      "\tprop: string;",
+      "}",
+      "",
+      "const ${1:${TM_FILENAME_BASE}} = (props : ${1:${TM_FILENAME_BASE}}Props ) => {",
+      "",
+      "\tconst {prop} = props;",
+      "",
+      "\treturn (",
+      "\t\t<div className={styles.root}>",
+      "\t\t\t{prop}$0",
+      "\t\t</div>",
+      "\t);",
+      "};",
+      "",
+      "export default ${1:${TM_FILENAME_BASE}};",
+      ""
+    ],
+    "description": "Create a React functional component using TypeScript and SCSS modules"
+  },
+  "React.Function-Component": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
+    "prefix": "rfce",
+    "body": [
+      "import React from 'react'",
+      "",
+      "function ${TM_FILENAME_BASE}() {",
+      "\treturn <div>${1:${TM_FILENAME_BASE}}${0}</div>",
+      "}",
+      "",
+      "export default ${TM_FILENAME_BASE}"
+    ],
+    "description": "React function component"
+  },
+  "React.Export-Arrow-Function-Component-Default": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
+    "prefix": "rafc",
+    "body": [
+      "import React from 'react'",
+      "",
+      "const ${TM_FILENAME_BASE} = () => {",
+      "\treturn <div>${1:${TM_FILENAME_BASE}}${0}</div>",
+      "}",
+      "",
+      "export default ${TM_FILENAME_BASE}"
+    ],
+    "description": "React arrow function component"
+  },
+  "React.Export-Arrow-Function-Component": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
+    "prefix": "rafce",
+    "body": [
+      "import React from 'react'",
+      "",
+      "export const ${TM_FILENAME_BASE} = () => {",
+      "\treturn <div>${1:${TM_FILENAME_BASE}}${0}</div>",
+      "}"
+    ],
+    "description": "React arrow function component export default"
+  },
+  "React.Layout-Component": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
+    "prefix": "lc",
+    "body": [
+      "import React from 'react';",
+      "",
+      "const Layout = ({ children }) => {",
+      " return (",
+      "\t<>",
+      "\t\t<${3:Header} />",
+      "\t\t<${1:Navbar} />",
+      "\t\t<main>{children}${0}</main>",
+      "\t\t<${2:Footer} />",
+      "\t\t</>",
+      "\t);",
+      "};",
+      "",
+      "export default Layout;"
+    ],
+    "description": "Export a React Layout Component"
+  }
+}
+```
+
+> vue-snippets.json
+
+```json
+{
+  "Vue.body": {
+    "scope": "javascript,typescript,vue",
+    "prefix": "<sc",
+    "body": [
+      "<script setup lang=\"ts\">",
+      "const props = defineProps<{",
+      "\tmodelValue?: boolean,",
+      "}>()",
+      "$1",
+      "</script>",
+      "",
+      "<template>",
+      "\t<div>",
+      "\t\t<slot/>",
+      "\t</div>",
+      "</template>"
+    ]
+  },
+  "Vue.template-ref": {
+    "scope": "javascript,typescript,vue",
+    "prefix": "tref",
+    "body": ["const ${1:el} = shallowRef<HTMLDivElement>()"]
+  },
+  "Vue.computed": {
+    "scope": "javascript,typescript,vue",
+    "prefix": "com",
+    "body": ["computed(() => { $1 })"]
+  },
+  "Vue.watch-effect": {
+    "scope": "javascript,typescript,vue",
+    "prefix": "watchE",
+    "body": ["watchEffect(() => {", "\t$1", "})"]
+  },
+  "Vue.if-vitest": {
+    "scope": "javascript,typescript",
+    "prefix": "ifv",
+    "body": [
+      "if (import.meta.vitest) {",
+      "\tconst { describe, it, expect } = import.meta.vitest",
+      "\t${1}",
+      "}"
+    ]
+  }
+}
+```
+
+> markdown.json
+
+````json
+{
+  "H1": {
+    "prefix": "/1",
+    "body": ["# $0"]
+  },
+  "H2": {
+    "prefix": "/2",
+    "body": ["## $0"]
+  },
+  "H3": {
+    "prefix": "/3",
+    "body": ["### $0"]
+  },
+  "H4": {
+    "prefix": "/4",
+    "body": ["#### $0"]
+  },
+  "H5": {
+    "prefix": "/5",
+    "body": ["##### $0"]
+  },
+  "H6": {
+    "prefix": "/6",
+    "body": ["###### $0"]
+  },
+  "bold粗体": {
+    "prefix": "/b",
+    "body": ["**$1**$2"]
+  },
+  "italic斜体": {
+    "prefix": "/i",
+    "body": ["*$1*$2"]
+  },
+  "underline下划线": {
+    "prefix": "/u",
+    "body": ["<u>$1</u>$2"]
+  },
+  "line-through删除线": {
+    "prefix": "/x",
+    "body": ["~~$1~~$2"]
+  },
+  "divider分割线": {
+    "prefix": "/d",
+    "body": ["------", "$1"]
+  },
+  "link链接": {
+    "prefix": "/k",
+    "body": ["[$2]($1)$3"]
+  },
+  "image图片": {
+    "prefix": "/img",
+    "body": ["![$2]($1)$3"]
+  },
+  "inline code行内代码": {
+    "prefix": "/cl",
+    "body": ["`$1`$2"]
+  },
+  "code block代码片段": {
+    "prefix": "/c",
+    "body": ["```$1", "$0", "```"]
+  },
+  "ul有序列表": {
+    "prefix": "/ul",
+    "body": ["- $0"]
+  },
+  "ol无序列表": {
+    "prefix": "/ol",
+    "body": ["1. $0"]
+  },
+  "task任务列表": {
+    "prefix": "/task",
+    "body": ["- [ ] $0"]
+  },
+  "quote引用": {
+    "prefix": "/q",
+    "body": ["> $1", "$2"]
+  },
+  "table表格": {
+    "prefix": "/t",
+    "body": [
+      "|  $1  |  $2  |  $3  |  $4  |",
+      "| ---- | ---- | ---- | ---- |",
+      "|  $5  |  $6  |  $7  |  $8  |",
+      "|  $9  |  $10 |  $11 |  $12 |",
+      "|  $13 |  $14 |  $15 |  $16 |"
+    ]
+  }
+}
+````
+
+> test-snippets.json
+
+```json
+{
+  "Test.describe": {
+    "prefix": "desc",
+    "body": ["describe('should $1', () => {", "\t$2", "})"],
+    "description": "describe body"
+  },
+  "Test.test": {
+    "prefix": ["test"],
+    "body": ["test('should $1', () => {", "\t$2", "})"],
+    "description": "test body"
+  },
+  "Test.it": {
+    "prefix": ["it"],
+    "body": ["it('should $1', () => {", "\t$2", "})"],
+    "description": "test it body"
+  },
+  "Test.gwt": {
+    "prefix": ["gwt"],
+    "body": [
+      "describe('test context', () => {",
+      "\ttest('has no expected errors', {",
+      "\t\t// given",
+      " \t\t$0",
+      " \t\t// when",
+      "",
+      " \t\t// then",
+      "",
+      "\t});",
+      "});"
+    ],
+    "description": "test it body"
+  },
+  "Test.snapshot": {
+    "prefix": ["snapshot"],
+    "body": [
+      "import React from 'react'",
+      "import renderer from 'react-test-renderer'",
+      "import { $1 } from '../$1'",
+      "",
+      "describe('<$1 />', () => {",
+      "",
+      "  const defaultProps = {}",
+      "  const wrapper = renderer.create(<$1 {...defaultProps} />)",
+      "",
+      "  test('render', () => {",
+      "    expect(wrapper).toMatchSnapshot()",
+      "   })",
+      "})"
+    ],
+    "description": "test snapshot body"
+  }
+}
+```

@@ -1,15 +1,231 @@
 ---
 title: "Docker笔记"
 description: "Docker笔记"
-pubDate: 2022-07-08
-heroImage: "/blog/post/blog-placeholder-3.jpg"
+pubDate: 2023-10-08
+heroImage: "/blog/post/docker.jpg"
 ---
 
-This is my first **post**.
+## Docker 基础
 
-## Test
+> Docker 是一种容器技术，相比虚拟机更加轻量化，将应用程序与程序之间的依赖打包在一个镜像里，通过在这个虚拟容器中运行这个镜像，就能达到在真实的物理机上运行的效果一样，可以说，有了 Docker，程序员可以避免一个下午只为配置开发环境打出一句 Hello World 的重复性劳动了，可以有效保证环境的一致！别再说代码跑不起来啦！
 
-| Name | Age | Description |
-| ---- | --- | ----------- |
-| John | 20  | Lorem ipsum |
-| Doe  | 30  | Dolor sit   |
+- 更高效利用系统资源 - 相比虚拟机更轻量
+- 更快速的启动时间 - 秒级启动
+- 一致的运行环境
+- 持续交付和部署 - 通过 Dockerfile 进行镜像构建，快速部署
+- 轻松维护和拓展 - 微服务架构
+
+## Docker 常见命令
+
+### 镜像
+
+```bash
+# 搜索镜像
+docker search nginx
+
+# 拉取镜像
+docker pull nginx:latest
+docker pull mysql:8.0
+
+# 查看本地镜像
+docker images
+docker image ls
+
+# 删除镜像
+docker rmi nginx:latest
+docker image rm nginx:latest
+
+# 清理未使用的镜像
+docker image prune -a
+```
+
+### 容器
+
+```bash
+# 运行容器
+docker run -d --name my-nginx nginx:latest
+docker run -d -p 80:80 nginx:latest
+
+# 通过环境变量文件
+docker run -d --env-file .env image-name
+
+# 直接设置环境变量
+docker run -e MYSQL_ROOT_PASSWORD=password mysql
+
+# 常用运行参数
+docker run -d \
+  --name container-name \
+  -p 8080:80 \
+  -v /host/path:/container/path \
+  -e ENV_VAR=value \
+  --network my-network \
+  --restart always \
+  image:tag
+
+# 查看运行中的容器
+docker ps
+docker container ls
+
+# 查看所有容器（包括已停止的）
+docker ps -a
+
+# 停止/启动/重启容器
+docker stop container-id
+docker start container-id
+docker restart container-id
+
+# 删除容器
+docker rm container-id
+docker rm -f container-id  # 强制删除运行中的容器
+
+# 进入容器
+docker exec -it container-id bash
+docker exec -it container-id sh
+
+# 查看容器日志
+docker logs container-id
+docker logs -f container-id  # 实时查看
+docker logs --tail 100 container-id  # 查看最后100行
+```
+
+### Docker Compose
+
+```bash
+# 启动服务
+docker-compose up -d
+
+# 停止服务
+docker-compose down
+
+# 重建容器
+docker-compose up -d --build
+
+# 查看服务日志
+docker-compose logs
+docker-compose logs service-name
+
+# 查看服务状态
+docker-compose ps
+
+# 进入服务容器
+docker-compose exec service-name bash
+
+# 重启单个服务
+docker-compose restart service-name
+
+# 构建镜像
+docker-compose build service-name
+```
+
+### Build
+
+```bash
+# 构建镜像
+docker build -t image-name:tag .
+docker build -t image-name:tag -f Dockerfile.dev .
+
+# 推送镜像到仓库
+docker push username/image-name:tag
+
+# 保存镜像为文件
+docker save image-name > image.tar
+
+# 加载镜像文件
+docker load < image.tar
+```
+
+## Dockerfile
+
+Dockerfile 是一个文本文件，包含了所有的命令，用户可以用来组装一个镜像。Dockerfile 由一系列的指令组成，每个指令都代表着一个层，Docker 在构建镜像时会将每个指令都执行一遍。
+
+```dockerfile
+# syntax=docker.io/docker/dockerfile:1
+
+FROM node:18-alpine AS base
+
+# Install dependencies only when needed
+FROM base AS deps
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+
+# Install dependencies based on the preferred package manager
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
+RUN \
+  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
+  elif [ -f package-lock.json ]; then npm ci; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
+  else echo "Lockfile not found." && exit 1; \
+  fi
+
+
+# Rebuild the source code only when needed
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+# Next.js collects completely anonymous telemetry data about general usage.
+# Learn more here: https://nextjs.org/telemetry
+# Uncomment the following line in case you want to disable telemetry during the build.
+# ENV NEXT_TELEMETRY_DISABLED=1
+
+RUN \
+  if [ -f yarn.lock ]; then yarn run build; \
+  elif [ -f package-lock.json ]; then npm run build; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
+  else echo "Lockfile not found." && exit 1; \
+  fi
+
+# Production image, copy all the files and run next
+FROM base AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+# Uncomment the following line in case you want to disable telemetry during runtime.
+# ENV NEXT_TELEMETRY_DISABLED=1
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder /app/public ./public
+
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE 3000
+
+ENV PORT=3000
+
+# server.js is created by next build from the standalone output
+# https://nextjs.org/docs/pages/api-reference/config/next-config-js/output
+ENV HOSTNAME="0.0.0.0"
+CMD ["node", "server.js"]
+```
+
+## Docker 资源
+
+- [Docker 快速入门](https://github.com/dunwu/linux-tutorial/blob/master/docs/docker/docker-quickstart.md)
+- [Docker 最佳实践](https://github.com/dunwu/linux-tutorial/blob/master/docs/docker/docker-dockerfile.md)
+- [Docker Cheat Sheet](https://github.com/dunwu/linux-tutorial/blob/master/docs/docker/docker-cheat-sheet.md)
+- [Docker Cheat Sheet - zh-cn](https://github.com/wsargent/docker-cheat-sheet/tree/master/zh-cn)
+- [【前端全栈】一篇文章速通 Docker 入门和深入都有](https://www.yuque.com/haixueyewupingtaibuqianduanchengchangjihua/rg44mk/unknubphgbmm2mlp?singleDoc=#X6YUq)
+
+## Docker 面试题
+
+1. dockerfile 的组成有哪几部分？
+2. dockerfile 如何使用？
+3. docker 和虚拟机的优势比较
+4. docker 如何做持久化
+5. docker 中 run cmd 和 copy add 的区别
+6. docker 比虚拟机快的原因？
+7. docker 镜像分层原理，每一层具体是什么东西，下载的是什么内容
+8. docker 如何限制容器资源
+9. docker 的基本原理， 有哪些重要的组成部分？
+10. docker 如何实现资源隔离？
+11. docker 常用命令？
+12. docker 容器网络
