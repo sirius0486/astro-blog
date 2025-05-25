@@ -72,7 +72,7 @@ export default function HomePage() {
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/40 to-primary/20 animate-spin-slow" />
               <div className="relative w-full h-full rounded-full overflow-hidden">
                 <img
-                  src={"../../../public/images/avatar.jpeg"}
+                  src={"/images/avatar.jpeg"}
                   alt="Avatar"
                   width="150"
                   height="150"
